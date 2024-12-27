@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<div class="content-title">
+		<h2>Agendamentos</h2>
+		<span>Cadastro de Agendamentos</span>
+	</div>
+
+	<h:form>
+		<p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+		
+		<div class="grid form-cadastro">
+			
+			<div class="field-data col-cadastro col-12 md:col-2 lg:col-2">
+				<p:outputLabel for="dataInicio"	value="#{messages['text.input.agendamento.data']}:"/>
+				<p:datePicker id="dataInicio" value="#{agendamentoMB.agendamento.dataAgendamento}" showButtonBar="true" required="true"/>
+			</div>	
+			
+			<div class="field-data col-cadastro col-12 md:col-2 md:col-2">
+                <p:outputLabel value="#{messages['text.input.agendamento.motivo']}:"/>
+                <p:selectOneMenu id="motivo" value="#{agendamentoMB.agendamento.motivo}" required="true">
+                	<f:selectItem itemLabel="" itemValue=""/>  
+                    <f:selectItems value="#{agendamentoMB.motivos}"/>
+                </p:selectOneMenu>
+            </div>
+            
+			<div class="field-data col-cadastro col-12 md:col-6 lg:col-6">
+                <p:outputLabel for="@next" value="#{messages['text.input.solicitante.nome']}:"/>
+                <p:selectOneMenu id="nomeSolicitante" value="#{agendamentoMB.agendamento.solicitante}" converter="#{solicitanteConverter}"
+                                filter="true" filterMatchMode="startsWith" filterNormalize="true" required="true">
+                                
+					<f:selectItem itemLabel="" itemValue=""/>                                
+
+                    <f:selectItems value="#{agendamentoMB.solicitantes}" var="solicitante"
+                                itemLabel="#{solicitante.nome}" itemValue="#{solicitante}"/>
+
+                    <p:column style="width:10%">
+                        <span class="flag flag-#{c.id}" style="width: 30px; height: 20px"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{messages['text.input.solicitante.nome']}"/>
+                        </f:facet>
+                        <h:outputText value="#{c.nome}"/>
+                    </p:column>
+
+                </p:selectOneMenu>
+            </div>
+			
+			<div class="field-data col-cadastro col-12 md:col-6 lg:col-2">
+				<p:commandButton value="#{messages['text.input.incluir']}" disableOnAjax="false" action="#{agendamentoMB.salvar()}" update="tableAgendaCadastro, dataInicio, dataFim, nomeSolicitante" />
+			</div>
+
+		</div>
+	</h:form>
+			
+	<h:form id="tableAgendaCadastro">	
+		<div class="card">
+	        <p:dataTable var="agendamento" value="#{agendamentoMB.agendamentos}" showGridlines="true" stripedRows="true"
+	        	paginator="true" rows="10" emptyMessage="#{messages['text.table.sem.registros']}."
+	        	rowsPerPageTemplate="10,15,25,50,100" paginatorPosition="bottom" selectionRowMode="add">
+	        	
+	        	<p:column headerText="#{messages['text.input.agendamento.codigo']}" styleClass="text-center">
+	                <h:outputText value="#{agendamento.id}" />
+	            </p:column>
+	        	
+	            <p:column headerText="#{messages['text.input.agendamento.data']}" styleClass="text-center" colspan="1">
+	                <h:outputText value="#{agendamento.dataAgendamento}">
+	                	<f:convertDateTime pattern="dd/MM/yyyy" type="localDate"/>
+	                </h:outputText>
+	            </p:column>
+	
+	            <p:column headerText="#{messages['text.input.agendamento.motivo']}" styleClass="text-center" colspan="2">
+	                <h:outputText value="#{agendamento.motivo}" />
+	            </p:column>
+	
+	            <p:column headerText="#{messages['text.input.solicitante.nome']}" styleClass="text-center" colspan="4">
+	                <h:outputText value="#{agendamento.solicitante.nome}" />
+	            </p:column>
+	
+	            <p:column headerText="#{messages['text.button.acoes']}" styleClass="text-center">
+	                <p:commandButton id="excluirBtn" icon="pi pi-times" styleClass="excluirBtn rounded-button ui-button-danger" disableOnAjax="false" action="#{agendamentoMB.excluir(agendamento)}" update="tableAgendaCadastro"/>
+	                <p:tooltip for="excluirBtn" value="#{messages['text.input.excluir.registro']}" position="right"/>
+	            </p:column>
+	        </p:dataTable>
+    	</div>
+		
+	</h:form>
+</ui:composition>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" lang="pt-br">
+
+<h:head>
+	<title><ui:insert name="title" />LogOne Agenda Vagas</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<h:outputStylesheet name="css/styles.css" />
+	<!-- Font Awesome para os ícones -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+	<link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css" />	
+</h:head>
+<h:body>
+    <header>
+		  <ui:include src="header.xhtml" />
+    </header>
+
+    <div class="container">
+    
+    	<nav id="sidebar" class="sidebar">
+    		<ui:include src="menu.xhtml" />
+		</nav>
+		
+        <main class="main-content">
+           	<h:panelGroup id="content">
+				<h:panelGroup rendered="#{pageNavigation.currentPage eq 'vagas'}">
+					<ui:include src="../vagas.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{pageNavigation.currentPage eq 'solicitantes'}">
+					<ui:include src="../solicitantes.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{pageNavigation.currentPage eq 'agendamentos'}">
+					<ui:include src="../agendamentos.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{pageNavigation.currentPage eq 'consulta-agendamentos'}">
+					<ui:include src="../consulta-agendamentos.xhtml" />
+				</h:panelGroup>
+ 				
+			</h:panelGroup>
+        </main>
+    </div>
+</h:body>
+<h:outputScript name="js/script.js" />
+</html>	

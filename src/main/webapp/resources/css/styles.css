@@ -1,0 +1,286 @@
+/* Resetando algumas propriedades padrões do navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos do corpo e layout principal */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/* Estilo do header */
+header {
+    background-color: #333;
+    color: white;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+}
+
+/* Botão de menu agora posicionado à esquerda */
+.menu-toggle {
+    font-size: 30px;
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+    top: 27px;
+    transform: translateY(-50%);
+    color: white;
+    display: none; /* Oculta por padrão em telas grandes */
+}
+
+/* Logo no header */
+.title {
+    font-size: 24px;
+    margin-left: 15px; /* Para evitar que a logo sobreponha o botão */
+}
+
+.logo {
+    height: 25px;
+}
+
+.logo-title {
+	display: flex;
+	margin-left: 45px;
+}
+
+/* Layout principal: menu lateral e conteúdo */
+.container {
+    display: flex;
+    flex: 1;
+}
+
+/* Menu lateral - Visível sempre em telas grandes */
+.sidebar {
+    background-color: #444;
+    color: white;
+    width: 240px;
+    height: 100%;
+    position: fixed;
+    top: 60px;
+    left: 0; /* Menu sempre visível à esquerda em telas grandes */
+    padding-top: 20px;
+    transition: left 0.3s;
+}
+
+/* Links do menu lateral */
+.sidebar ul {
+    list-style: none;    
+}
+
+.sidebar ul li {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+/* Efeito de hover nas opções do menu */
+.sidebar ul li:hover {
+    background-color: #555; /* Cor de fundo ao passar o mouse (mantendo o tom escuro) */
+    color: white; /* Cor do texto ao passar o mouse */
+}
+
+.sidebar ul li:hover i {
+    color: #fdbd1b; /* Cor do ícone ao passar o mouse */
+}
+
+.sidebar ul li:hover .menu-text {
+    color: #fdbd1b; /* Cor do ícone ao passar o mouse */
+}
+
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* Ícones e texto no menu lateral */
+.sidebar ul li i {
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.menu-text {
+    display: inline-block; /* Exibe o texto ao lado dos ícones */
+}
+
+/* Estilo do conteúdo principal */
+.main-content {
+    flex: 1;
+    margin-left: 240px;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.content-title {
+    border-bottom-width: .5px;
+    border-bottom-color: #fac017;
+    border-bottom-style: solid;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+}
+
+.content-title span {
+   font-size: 13px;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+    border: none !important;
+    background: unset !important;
+}    
+
+/* .tableVaga > div > div > table > thead > tr > th { */
+/*     padding: .5rem .5rem; */
+/* } */
+
+.ui-datatable-tablewrapper > table > thead > tr > th {
+	 padding: .5rem .5rem;
+}
+	
+.ui-datatable-data > tr > td {
+    padding: .5rem .5rem !important;
+}
+
+.ui-paginator {
+    padding: 5px !important;
+}
+
+body .ui-datatable .ui-datatable-data > tr > td {
+    padding: 1rem 1rem;
+    border: 1px solid rgba(0,0,0,.08);
+    border-width: 0 0 1px 0;
+}
+
+.ui-datatable table {
+    border-collapse: collapse;
+}
+body .ui-datatable thead th {
+    border: 1px solid #e1e1e1 !important;   
+}
+
+.ui-datatable-data > tr > td > button {
+	width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+
+.text-center {
+	text-align: center;
+}
+
+/* Responsividade para tablet: encolher menu para mostrar apenas ícones */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sidebar {
+        width: 80px; /* Menu encolhe para 80px */
+    }
+
+    .sidebar ul li {
+        justify-content: center; /* Centraliza o conteúdo */
+    }
+
+    .sidebar ul li .menu-text {
+        display: none !important; /* Esconde o texto ao lado do ícone */
+    }
+	
+	.sidebar ul li i {   
+		margin-left: 10px;
+	}
+
+    .sidebar.open {
+        left: 0; /* Quando o menu estiver aberto, ele aparece */
+    }
+
+    .main-content {
+        margin-left: 80px; /* Ajuste no conteúdo para acompanhar a largura reduzida do menu */
+    }
+}
+
+/* Responsividade para celular: menu desaparece até ser clicado */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Mostra o botão de menu em telas pequenas */
+    }
+
+    .sidebar {
+        width: 200px;
+        left: -200px; /* Ajusta a largura do menu lateral para 200px */
+    }
+
+    .sidebar.open {
+        left: 0; /* Quando o menu estiver aberto, ele aparece */
+    }
+
+    .sidebar.open .menu-text {
+        display: inline-block !important; /* Exibe o texto ao lado dos ícones no celular quando o menu está aberto */
+    }
+
+    .main-content {
+        margin-left: 0; /* O conteúdo ocupa toda a largura */
+    }
+
+    /* Exibe o texto ao lado dos ícones quando o menu estiver aberto */
+    .sidebar.open ul li .menu-text {
+        display: initial; /* Restabelece o texto visível ao abrir o menu */
+    }	
+    
+	.col-cadastro {
+	    padding-bottom: 5px !important;
+	}
+}
+
+/* tela cadastro de vagas */
+.col-cadastro > span > input, .col-cadastro > input {
+	width: 100% !important;
+}
+
+.col-cadastro > label {
+	margin-bottom: 0.5rem;	
+	display: inline-block;
+}
+
+.col-cadastro > input {
+	width: 100% !important;
+}
+
+.col-cadastro > span {
+    display: unset; 
+}
+
+.ui-selectonemenu {
+	width: 100% !important;
+}
+
+.ui-selectonemenu > span {
+    height: 37px;
+}
+
+.col-cadastro button {
+    margin-top: 29px;
+}
+
+.form-cadastro {
+	padding-bottom: 40px;
+}
+
+.content-title span {
+   font-size: 13px;
+}
+
+.formgroup-inline .field-data {
+	margin-right: 20px;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+    border: none !important;
+    background: unset !important;
+}    

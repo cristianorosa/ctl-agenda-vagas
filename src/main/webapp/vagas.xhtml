@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<div class="content-title">
+		<h2>Vagas</h2>
+		<span>Cadastro de Vagas</span>
+	</div>
+
+	<h:form>
+		<p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+		
+		<div class="grid form-cadastro">
+			
+			<div class="field-data col-cadastro col-12 md:col-6 lg:col-3">
+				<p:outputLabel for="dataInicio"	value="#{messages['text.input.vaga.data.inicio']}:"/>
+				<p:datePicker id="dataInicio" value="#{vagaMB.vaga.dataInicio}" showButtonBar="true" required="true"/>
+			</div>	
+
+			<div class="field-data col-cadastro col-12 md:col-6 lg:col-4">
+				<p:outputLabel for="dataFim" value="#{messages['text.input.vaga.data.fim']}:"/>
+				<p:datePicker id="dataFim" value="#{vagaMB.vaga.dataFim}" showButtonBar="true" required="true"/>
+			</div>	
+			
+			<div class="field-data col-cadastro col-12 md:col-6 lg:col-3">
+				<p:outputLabel for="qtd" value="#{messages['text.input.vaga.quantidade']}:"/>
+				<p:inputNumber id="qtd"  value="#{vagaMB.vaga.quantidade}" required="true"/>
+			</div>
+			
+			<div class="field-data col-cadastro col-12 md:col-6 lg:col-2">
+				<p:commandButton value="#{messages['text.input.incluir']}" disableOnAjax="false" action="#{vagaMB.salvar()}" update="tableVaga, dataInicio, dataFim, qtd" />
+			</div>
+
+		</div>
+	</h:form>
+			
+	<h:form id="tableVaga">	
+		<div class="card">
+	        <p:dataTable var="vaga" value="#{vagaMB.vagas}" showGridlines="true" stripedRows="true"
+	        	paginator="true" rows="10" emptyMessage="#{messages['text.table.sem.registros']}."
+	        	rowsPerPageTemplate="10,15,25,50,100" paginatorPosition="bottom" selectionRowMode="add">
+	        	 
+	            <p:column headerText="#{messages['text.input.vaga.data.inicio']}" styleClass="text-center" colspan="4">
+	                <h:outputText value="#{vaga.dataInicio}">
+	                	<f:convertDateTime pattern="dd/MM/yyyy" type="localDate"/>
+	                </h:outputText>
+	            </p:column>
+	
+	            <p:column headerText="#{messages['text.input.vaga.data.fim']}" styleClass="text-center" colspan="3">
+	                <h:outputText value="#{vaga.dataFim}">
+	                	<f:convertDateTime pattern="dd/MM/yyyy" type="localDate"/>
+	                </h:outputText>
+	            </p:column>
+	
+	            <p:column headerText="#{messages['text.input.vaga.quantidade']}" styleClass="text-center" colspan="3">
+	                <h:outputText value="#{vaga.quantidade}" />
+	            </p:column>
+	
+	            <p:column headerText="#{messages['text.button.acoes']}" styleClass="text-center">
+	                <p:commandButton id="excluirBtn" icon="pi pi-times" styleClass="excluirBtn rounded-button ui-button-danger" disableOnAjax="false" action="#{vagaMB.excluir(vaga)}" update="tableVaga"/>
+	                <p:tooltip for="excluirBtn" value="#{messages['text.input.excluir.registro']}" position="right"/>
+	            </p:column>
+	        </p:dataTable>
+    	</div>
+		
+	</h:form>
+</ui:composition>
+

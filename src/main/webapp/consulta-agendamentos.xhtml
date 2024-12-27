@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<div class="content-title">
+		<h2>Agendamentos</h2>
+		<span>Consulta de Agendamentos</span>
+	</div>
+
+	<h:form>
+		<p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+		
+		<div class="grid form-cadastro">
+			
+			<div class="field-data col-cadastro col-12 md:col-2 lg:col-2">
+				<p:outputLabel for="dataInicio"	value="#{messages['text.input.vaga.data.inicio']}:"/>
+				<p:datePicker id="dataInicio" value="#{agendamentoMB.dataInicio}" showButtonBar="true"/>
+			</div>	
+
+			<div class="field-data col-cadastro col-12 md:col-2 lg:col-2">
+				<p:outputLabel for="dataFim" value="#{messages['text.input.vaga.data.fim']}:"/>
+				<p:datePicker id="dataFim" value="#{agendamentoMB.dataFim}" showButtonBar="true"/>
+			</div>	
+			
+			<div class="field-data col-cadastro col-12 md:col-8 lg:col-6">
+                <p:outputLabel for="@next" value="#{messages['text.input.solicitante.nome']}:"/>
+                <p:selectOneMenu id="nomeSolicitante" value="#{agendamentoMB.solicitanteConsulta}" converter="#{solicitanteConverter}"
+                                filter="true" filterMatchMode="startsWith" filterNormalize="true">
+                                
+					<f:selectItem itemLabel="" itemValue=""/>                                
+
+                    <f:selectItems value="#{agendamentoMB.solicitantes}" var="solicitante"
+                                itemLabel="#{solicitante.nome}" itemValue="#{solicitante}"/>
+
+                    <p:column style="width:10%">
+                        <span class="flag flag-#{c.id}" style="width: 30px; height: 20px"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{messages['text.input.solicitante.nome']}"/>
+                        </f:facet>
+                        <h:outputText value="#{c.nome}"/>
+                    </p:column>
+
+                </p:selectOneMenu>
+            </div>
+			
+			<div class="field-data col-cadastro col-12 md:col-6 lg:col-2">
+				<p:commandButton value="#{messages['text.input.search']}" disableOnAjax="false" action="#{agendamentoMB.consultar()}" update="tableAgendamento dataInicio, dataFim, nomeSolicitante" />
+			</div>
+
+		</div>
+	</h:form>
+			
+	<h:form id="tableAgendamento">	
+		<div class="card">
+	        <p:dataTable var="agendamento" value="#{agendamentoMB.resultadoBusca}" showGridlines="true" stripedRows="true"
+	        	paginator="true" rows="10" emptyMessage="#{messages['text.table.sem.registros']}."
+	        	rowsPerPageTemplate="10,15,25,50,100" paginatorPosition="bottom" selectionRowMode="add">
+	        	
+	        	<p:column headerText="#{messages['text.input.solicitante.nome']}" styleClass="text-center" colspan="6">
+	                <h:outputText value="#{agendamento.nome}" />
+	            </p:column>
+	             
+	            <p:column headerText="#{messages['text.input.vaga.total.agendamentos']}" styleClass="text-center" colspan="2">
+	                <h:outputText value="#{agendamento.totalAgendamentos}" />
+	            </p:column>
+	            <p:column headerText="#{messages['text.input.vaga.total.qtd.vagas']}" styleClass="text-center" colspan="2">
+	                <h:outputText value="#{agendamento.qtdVagas}" />
+	            </p:column>
+	
+	            <p:column headerText="#{messages['text.input.vaga.total.percentual']}" styleClass="text-center" colspan="2">
+	                <h:outputText value="#{agendamento.percentual}" />
+	            </p:column>
+	        </p:dataTable>
+    	</div>
+		
+	</h:form>
+</ui:composition>
+

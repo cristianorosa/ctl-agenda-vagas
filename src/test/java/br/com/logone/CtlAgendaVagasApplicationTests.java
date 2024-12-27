@@ -7,9 +7,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class CtlAgendaVagasApplicationTests {
+	
+	@Test
+	void contextLoads() { 
+		// document why this method is empty
+	}
 
 	@Test
 	void main() {
-		assertThrows(IllegalArgumentException.class, () -> CtlAgendaVagasApplication.main(new String[0]));
+		assertThrows(IllegalArgumentException.class, () -> CtlAgendaVagasApplication.main(null));
 	}
 }

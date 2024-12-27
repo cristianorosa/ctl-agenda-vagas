@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<div class="content-title">
+		<h2>Solicitante</h2>
+		<span>Cadastro de Solicitantes</span>
+	</div>
+
+	<h:form>
+		<p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+		
+		<div class="grid form-cadastro">
+					
+			<div class="field-data col-cadastro col-12 md:col-10 lg:col-10">
+				<p:outputLabel for="nome" value="#{messages['text.input.solicitante.nome']}:"/>
+				<p:inputText id="nome" value="#{solicitanteMB.solicitante.nome}" required="true"/>
+			</div>
+			
+			<div class="field-data col-cadastro col-12 md:col-2 lg:col-2">
+				<p:commandButton value="#{messages['text.input.incluir']}" disableOnAjax="false" action="#{solicitanteMB.salvar()}" update="tableSol, nome" />
+			</div>
+
+		</div>
+	</h:form>
+			
+	<h:form id="tableSol">	
+		<div class="card">
+	        <p:dataTable var="solicitante" value="#{solicitanteMB.solicitantes}" showGridlines="true" stripedRows="true"
+	        	paginator="true" rows="10" emptyMessage="#{messages['text.table.sem.registros']}."
+	        	rowsPerPageTemplate="10,15,25,50,100" paginatorPosition="bottom" selectionRowMode="add">
+	        	 
+	            <p:column headerText="#{messages['text.input.solicitante.nome']}" colspan="10">
+	                <h:outputText value="#{solicitante.nome}" />
+	            </p:column>
+         	
+	            <p:column headerText="#{messages['text.button.acoes']}" styleClass="text-center">
+	                <p:commandButton id="excluirBtn" icon="pi pi-times" styleClass="excluirBtn rounded-button ui-button-danger" disableOnAjax="false" action="#{solicitanteMB.excluir(solicitante)}" update="tableSol"/>
+	                <p:tooltip for="excluirBtn" value="#{messages['text.input.excluir.registro']}" position="right"/>
+	            </p:column>
+	        </p:dataTable>
+    	</div>
+		
+	</h:form>
+</ui:composition>
+

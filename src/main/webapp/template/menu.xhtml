@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	
+	<h:form>
+		<ul>
+			<li>
+				<i class="far fa-calendar-alt"></i>
+				<h:commandLink  value="Agendamentos" class="menu-text">
+					<f:ajax render=":content" listener="#{pageNavigation.navigate('agendamentos')}"/>
+				</h:commandLink>
+			</li>
+			<li>
+				<i class="fa fa-search"></i>
+				<h:commandLink value="Consulta Agendamentos" class="menu-text" >
+					<f:ajax render=":content" listener="#{pageNavigation.navigate('consulta-agendamentos')}" />
+				</h:commandLink>
+			</li>
+			<li>
+				<i class="fas fa-users"></i>
+				<h:commandLink  value="Solicitantes" class="menu-text">
+					<f:ajax render=":content" listener="#{pageNavigation.navigate('solicitantes')}"/>
+				</h:commandLink>
+			</li>
+			<li>
+				<i class="fas fa-window-maximize"></i>
+				<h:commandLink value="Vagas" class="menu-text" >
+					<f:ajax render=":content" listener="#{pageNavigation.navigate('vagas')}" />
+				</h:commandLink>
+			</li>
+		</ul>
+	</h:form>	
+</ui:composition>

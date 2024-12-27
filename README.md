@@ -26,3 +26,4 @@ Siga os passos para executar:
 Requisitos:
 Java 17, Maven, Git
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cristianorosa_ctl-agenda-vagas&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=cristianorosa_ctl-agenda-vagas)

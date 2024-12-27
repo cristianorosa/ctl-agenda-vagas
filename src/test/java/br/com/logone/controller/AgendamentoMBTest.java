@@ -128,12 +128,4 @@ class AgendamentoMBTest {
 		
 		assertEquals(1, sol.size());
 	}
-//	
-//	@Test
-//	void getVaga() {
-//		Solicitante sol = solicitanteMB.getSolicitante();
-//		assertEquals(null, sol.getId());
-//	}
-//	
-	
 }

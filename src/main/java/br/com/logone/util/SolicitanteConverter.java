@@ -14,7 +14,6 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 @Named
@@ -29,14 +28,16 @@ public class SolicitanteConverter implements Converter<Object> {
 	
 	@Value("${converter.exception.msg}")
 	private String converterExceptionMsg;
-	
 
-    @Inject
     private SolicitanteService solicitanteService;
 
-    @Override
+    public SolicitanteConverter(SolicitanteService solicitanteService) {
+		this.solicitanteService = solicitanteService;
+	}
+
+	@Override
     public Solicitante getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value != null && !value.equalsIgnoreCase("&nbsp;") && value.trim().length() > 0 ) {
+        if (value != null && !value.equalsIgnoreCase("&nbsp;") && !value.isEmpty() ) {
             try {
             	Optional<Solicitante> ret = solicitanteService.findById(Long.parseLong(value));            	
             	if (ret.isPresent()) {
